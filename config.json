@@ -1,0 +1,8 @@
+{
+  "url": "https://WILL_BE_SET_LATER.koyeb.app",
+  "port": 4567,
+  "database": "mongo",
+  "mongo": {
+    "uri": "mongodb+srv://ham74246_db_user:j%7F3LChpz6xvPN@nodebb-cluster.w2yrelnm.mongodb.net/nodebb?retryWrites=true&w=majority"
+  }
+}
