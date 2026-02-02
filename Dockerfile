@@ -6,10 +6,8 @@ RUN apk add --no-cache git python3 make g++
 
 RUN git clone https://github.com/NodeBB/NodeBB.git .
 
-WORKDIR /app/src
-
 RUN npm install --omit=dev
 
 EXPOSE 4567
 
-CMD ["node", "../app.js"]
+CMD ["node", "app.js"]
