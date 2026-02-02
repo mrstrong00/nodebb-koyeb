@@ -2,17 +2,14 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/nodebb
 
-# Dependencies
+# System deps
 RUN apk add --no-cache git python3 make g++
 
 # Clone NodeBB
 RUN git clone https://github.com/NodeBB/NodeBB.git .
 
-# Install NodeBB deps (الطريقة الصح)
-RUN npm install --omit=dev
-
-# Build NodeBB
-RUN ./nodebb build
+# Install NodeBB (دي أهم خطوة)
+RUN ./nodebb install --production
 
 EXPOSE 4567
 
