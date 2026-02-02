@@ -1,18 +1,13 @@
 FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /usr/src/nodebb
 
-# Install system dependencies
-RUN apk add --no-cache git python3 make g++ bash curl
+RUN apk add --no-cache git python3 make g++
 
-# Clone official NodeBB repo (latest stable)
-RUN git clone --depth 1 https://github.com/NodeBB/NodeBB.git /app
+RUN git clone --depth 1 https://github.com/NodeBB/NodeBB.git .
 
-# Install NodeBB dependencies
-RUN npm install --omit=dev
+RUN npm install --production
 
-# Expose NodeBB default port
 EXPOSE 4567
 
-# Start NodeBB
-CMD ["sh", "-c", "./nodebb setup && ./nodebb start"]
+CMD ["node", "app.js"]
