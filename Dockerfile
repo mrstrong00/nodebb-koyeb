@@ -8,4 +8,4 @@ RUN git clone https://github.com/NodeBB/NodeBB.git .
 
 EXPOSE 4567
 
-CMD ["sh", "-c", "if [ ! -f config.json ]; then ./nodebb install --ci --skip-build; fi && ./nodebb start"]
+CMD ["sh", "-c", "./nodebb install --ci --bind=0.0.0.0 --port=4567 && ./nodebb start"]
