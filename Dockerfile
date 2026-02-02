@@ -1,23 +1,20 @@
-# Use Node.js 20 on Alpine Linux
+# Base image
 FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apk add --no-cache git python3 make g++
+# Install system dependencies required for NodeBB
+RUN apk add --no-cache git python3 make g++ bash curl
 
-# Clone NodeBB directly into /app
-RUN git clone https://github.com/NodeBB/NodeBB.git /app
+# Clone the official NodeBB repository (latest stable)
+RUN git clone --depth 1 https://github.com/NodeBB/NodeBB.git /app
 
-# Verify that package.json exists (optional, for debugging)
-RUN test -f /app/package.json
-
-# Install NodeBB dependencies (omit dev)
+# Install NodeBB dependencies (production only)
 RUN npm install --omit=dev
 
 # Expose NodeBB default port
 EXPOSE 4567
 
-# Run NodeBB loader to start the app
-CMD ["node", "loader.js"]
+# Automatically run NodeBB setup if needed, then start NodeBB
+CMD ["sh", "-c", "if [ ! -f config.json ]; then ./nodebb setup; fi && ./nodebb start"]
