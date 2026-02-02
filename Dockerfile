@@ -4,8 +4,13 @@ WORKDIR /app
 
 RUN apk add --no-cache git python3 make g++
 
+# Clone NodeBB
 RUN git clone https://github.com/NodeBB/NodeBB.git .
+
+# Install dependencies first
+RUN npm install --omit=dev
 
 EXPOSE 4567
 
-CMD ["sh", "-c", "./nodebb install --ci --bind=0.0.0.0 --port=4567 && ./nodebb start"]
+# Run NodeBB installer and then start
+CMD ["sh", "-c", "./nodebb setup --cli && ./nodebb start"]
